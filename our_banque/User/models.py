@@ -16,6 +16,8 @@ class ManagementUser(AbstractUser):
     def clean(self):
         super().clean()
         try:
+            if ManagementUser.objects.filter(phone_number=self.phone_number).exists():
+                raise ValidationError("this phone number already exist .")
             phone_number_parsed = parse(self.phone_number)
             if not is_valid_number(phone_number_parsed):
                 raise ValidationError("Your phone number is invalid!")

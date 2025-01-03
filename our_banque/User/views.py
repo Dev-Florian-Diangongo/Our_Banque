@@ -44,7 +44,7 @@ def loginUserView(request, *args, **kwargs):
             refresh_token = RefreshToken.for_user(user=user)
             access_token = refresh_token.access_token
             return Response({
-                'acces_token':access_token,
-                'refresh_token':refresh_token
+                'acces_token':str(access_token),
+                'refresh_token':str(refresh_token)
             },status=status.HTTP_200_OK )
         return Response(serialized_data.errors, status=status.HTTP_400_BAD_REQUEST)

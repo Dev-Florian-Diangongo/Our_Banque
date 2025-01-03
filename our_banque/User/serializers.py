@@ -16,15 +16,12 @@ class RegisterUserSerializer(serializers.ModelSerializer):
         extra_kwargs = {
             "password" : {"write_only":True}
         }
-    def validated_data(self, value):
-        if not value :
-            raise ValidationError('all fields are required ')
-        return value
     def create(self, validated_data):
         try :
             user = User.objects.create_user(
             first_name = validated_data['first_name'],
             last_name = validated_data['last_name'],
+            phone_number = validated_data['phone_number'],
             email = validated_data["email"],
             username = validated_data["username"],
             password = validated_data["password"]
@@ -52,6 +49,7 @@ class AutheticateUserSerializer(serializers.Serializer):
             )
             if not user_authenticated :
                 raise ValidationError("the email or password is invalid  :")
+            return user_authenticated
         except ValidationError as e :
             raise ValidationError(str(e))
     
