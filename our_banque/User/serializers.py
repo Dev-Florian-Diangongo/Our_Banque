@@ -12,7 +12,7 @@ this class verify again the validity of data and when i'm using (get_user_model)
 class RegisterUserSerializer(serializers.ModelSerializer):
     class Meta :
         model = ManagementUser
-        fields = ["first_name","last_name","email","username","password"]
+        fields = ["first_name","last_name","phone_number", "email","username","password"]
         extra_kwargs = {
             "password" : {"write_only":True}
         }
